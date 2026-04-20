@@ -2,7 +2,7 @@
 
 QUEST is a comprehensive platform for interactive testing, comparison, and evaluation of language models. The application consists of a client-server architecture with support for multiple LLM providers including OpenAI, PerplexityAI and local Ollama models.
 
-![Quest Demo](quest.webp)
+![Quest Demo](quest.gif)
 
 ## TL;DR Quick Start
 
