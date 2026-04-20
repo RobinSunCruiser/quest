@@ -1,0 +1,45 @@
+services:
+  quest:
+    image: robinsuncruiser/quest
+    container_name: quest
+    # quest wird nur intern über den Netzwerknamen (quest) und Port 3000 erreichbar sein
+    expose:
+      - "3000"
+    volumes:
+      # Die lokale server-config.json wird im Container als config.json verwendet.
+      - ./quest/config.json:/app/config.json:ro
+      - ./quest/dot.env:/app/.env:ro
+    # if host.docker.internal is not mapped to host-gateway by default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      # Die .env-Datei wird im Container als Umgebungsvariablen verwendet.
+      - ./openai/.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      # Port 80 für HTTP und Port 443 für HTTPS werden vom Host weitergeleitet
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Hier wird die NGINX-Konfiguration eingebunden – erstelle dazu z.B. eine nginx.conf im Projektverzeichnis
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Zertifikate für HTTPS (z.B. selbstsigniert oder von einer internen CA)
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - quest
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

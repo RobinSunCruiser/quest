@@ -1,0 +1,27 @@
+{
+    "Log": {
+        "Level": "info"
+    },
+    "Server": {
+        "Port": 3000
+    },
+    "LLMAdapters": {
+        "internal": {
+            "baseUrl": "http://host.docker.internal:11434",
+            "provider": "ollama",
+            "modelFilter": []
+        }
+    },
+    "Authentication": {
+        "user": {
+            "role": "user",
+            "secret": "REPLACE_WITH_BCRYPT_HASH_GENERATED_BY_server/hash.js"
+        }
+    },
+    "Embeddings": {
+        "ollama1": {
+            "adapter": "internal",
+            "model": "bge-m3:latest"
+        }
+    }
+}

@@ -1,0 +1,112 @@
+/**
+ * @module Styles/main
+ * 
+ * Global CSS styles for the QUEST application.
+ * This file contains base styling, font imports, and performance optimizations
+ * for third-party components used throughout the application.
+ */
+
+/**
+ * Import custom web fonts from Google Fonts
+ * - Audiowide: A display font with a futuristic/technical appearance
+ * - Orbitron: A geometric sans-serif font used for the application logo and headings
+ *   with font weights from 400 (regular) to 900 (black)
+ */
+/* Audiowide font declaration */
+@font-face {
+    font-family: 'Audiowide';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap; /* Improves perceived loading performance */
+    src: url('/fonts/audiowide/Audiowide-Regular.ttf') format('truetype');
+}
+
+/* Orbitron font declarations for different weights */
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('/fonts/orbitron/Orbitron-Black.ttf') format('truetype');
+}
+
+/**
+  * Base styling for the entire application
+  * Sets Helvetica as the primary font with sans-serif fallback
+  */
+body {
+    font-family: 'Helvetica', sans-serif;
+}
+
+/**
+  * Interactive elements in ApexCharts components
+  * Changes cursor to pointer (hand) to indicate clickable chart elements
+  * Applies to heatmap rectangles and data points in the evaluation charts
+  */
+.apexcharts-heatmap-rect,
+.apexcharts-series-point {
+    cursor: pointer;
+}
+
+/**
+  * Performance optimization for ReactMarkdown components
+  * Uses CSS containment to isolate rendering of markdown content
+  * Prevents unnecessary repaints and improves scrolling performance
+  * when displaying large markdown documents
+  */
+.react-markdown-container {
+    contain: content;
+}
+
+/**
+  * Performance optimization for ApexCharts visualizations
+  * - will-change: transform - Hints browser to optimize for transformations
+  * - contain: layout - Prevents chart layout changes from affecting parent elements
+  * 
+  * These optimizations improve rendering performance when charts are animated
+  * or when multiple charts are displayed simultaneously
+  */
+.apexcharts-canvas {
+    will-change: transform;
+    contain: layout;
+}

@@ -1,0 +1,7 @@
+# REMOVED — the previously bundled self-signed certificate was tied to a
+# specific person and organisation and should not be distributed publicly.
+#
+# Generate your own self-signed certificate for local/dev use:
+#   openssl req -x509 -newkey rsa:2048 -nodes -sha256 \
+#     -keyout private.key -out certificate.crt \
+#     -days 365 -subj "/CN=localhost"

@@ -1,0 +1,30 @@
+{
+  "name": "quest",
+  "version": "1.0.0",
+  "description": "Qualitative Evaluation und Untersuchung von Sprachmodellen Tool",
+  "keywords": [],
+  "author": "Robin Nicolay, Felix Gratzkowski, Sebastain Bader",
+  "license": "Unlicense",
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "start": "node dist/server.bundle.js",
+    "build": "shx rm -rf ./dist && npm run build_client && npm run build_server",
+    "build_client": "cd ./client && npm install && npm run build",
+    "build_server": "cd ./server && npm install && npm run build && shx cp -R ./dist ../dist",
+    "release": "shx rm -rf ./release && npm run build && npm run copy_DistAssetsToRelease && npm run build_binaries",
+    "copy_DistAssetsToRelease": "shx mkdir release && shx cp ./dist/config.json ./release/config.json && shx cp ./dist/README.md ./release/README.md",
+    "build_binaries": "pkg . --output release/quest --targets node18-win-x64,node18-macos-x64,node18-linux-x64",
+    "docker_push_linux": "docker buildx build --platform linux/amd64 -t robinsuncruiser/quest . && docker push robinsuncruiser/quest"
+  },
+  "bin": "./dist/server.bundle.js",
+  "pkg": {
+    "assets": [ "dist/client/**/*" ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "pkg": "^5.8.1",
+    "shx": "^0.3.4"
+  }
+}
